@@ -1,0 +1,10 @@
+/* Test css file to explore absolute URL references */
+h1 {
+    background: green url(/green.gif); /* in the parent dir */
+}
+h2 {
+    background: green url(/absolute/green.gif); /* in the same dir */
+}
+h3 {
+    background: green url(/sibling/green.gif); /* in a sibling dir */
+}

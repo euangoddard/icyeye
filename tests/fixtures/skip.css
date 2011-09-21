@@ -1,0 +1,7 @@
+/* Test CSS file to explore examples where URLs are ignored */
+p {
+	background: url(http://exmaple.com/foo);
+}
+h4 {
+	background: url(/tmp/not_found.gif);
+}

@@ -1,0 +1,7 @@
+/* Whitespace is allowed around the URL declaration */
+h1 {
+	background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAD/AAAAACwAAAAAAQABAAACAkQBADs=);
+}
+h2 {
+	background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAD/AAAAACwAAAAAAQABAAACAkQBADs=);
+}

@@ -1,0 +1,7 @@
+/* Test CSS file to explore relative URLs */
+h1 {
+    background: url(blue.jpg) repeat-x;
+}
+h2 {
+    background: url(../fixtures/green.gif) repeat-y;
+}

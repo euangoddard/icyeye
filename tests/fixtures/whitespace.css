@@ -1,0 +1,10 @@
+/* Whitespace is allowed around the URL declaration */
+h1 {
+	background: url(  green.gif );
+}
+h2 {
+	background: url(
+	
+	   green.gif
+	);
+}

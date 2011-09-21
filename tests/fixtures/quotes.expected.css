@@ -1,0 +1,10 @@
+/* Test css file to explore different quote matches */
+h1 {
+	background: blue url(data:image/gif;base64,R0lGODlhAQABAIAAAAD/AAAAACwAAAAAAQABAAACAkQBADs=); /* No quotes around the url */
+}
+h2 {
+    background: green url(data:image/gif;base64,R0lGODlhAQABAIAAAAD/AAAAACwAAAAAAQABAAACAkQBADs=); /* Single quotes around the url */
+}
+h3 {
+    background: red url(data:image/gif;base64,R0lGODlhAQABAIAAAAD/AAAAACwAAAAAAQABAAACAkQBADs=); /* Double quotes around the url */
+}
