@@ -60,7 +60,7 @@ class TestMakeCssImagesInline(_BaseFixtureTestCase):
 
 
 class TestCssImagesInlinerParsing(_BaseFixtureTestCase):
-    """Tests for :meth:`CssImagesInliner.parse`"""
+    """Tests for the parsing component of :func:`make_images_inline`"""
     
     def test_relative_urls(self):
         """URLs relative to the CSS file are correctly identified and encoded"""
@@ -77,7 +77,8 @@ class TestCssImagesInlinerParsing(_BaseFixtureTestCase):
     def test_relative_urls(self):
         """URLs relative to the CSS file are correctly identified and encoded"""
         
-        expected_output = self.read_fixture_file("absolute/absolute_urls.expected.css")
+        expected_output = self.read_fixture_file(
+            "absolute/absolute_urls.expected.css")
         
         new_css = make_css_images_inline(
             self.get_fixture_file_path("absolute/absolute_urls.css"),
