@@ -74,7 +74,7 @@ class TestCssImagesInlinerParsing(_BaseFixtureTestCase):
         
         eq_(expected_output, new_css)
         
-    def test_relative_urls(self):
+    def test_absolute_urls(self):
         """URLs relative to the CSS file are correctly identified and encoded"""
         
         expected_output = self.read_fixture_file(
@@ -129,6 +129,47 @@ class TestCssImagesInlinerParsing(_BaseFixtureTestCase):
             self.get_fixture_file_path("whitespace.css"),
             "/whitespace.css",
             )
+    
+    def test_size_limit_met(self):
+        """
+        When the size of a file exactly matches the limit or is under the limit,
+        it is still encoded.
+        
+        """
+        expected_output = self.read_fixture_file("relative_urls.expected.css")
+        
+        # Exact hit on size of blue.jpg
+        new_css = make_css_images_inline(
+            self.get_fixture_file_path("relative_urls.css"),
+            "/relative_urls.css", image_size_limit=16965
+            )
+        
+        eq_(expected_output, new_css)
+        
+        # Easily clear of blue.jpg size
+        new_css = make_css_images_inline(
+            self.get_fixture_file_path("relative_urls.css"),
+            "/relative_urls.css", image_size_limit=20000
+            )
+        
+        eq_(expected_output, new_css)
+        
+    def test_size_limit_not_met(self):
+        """
+        When the size of a file exceeds the maximum file size that file is left
+        alone in the output.
+        
+        """
+        
+        expected_output = self.read_fixture_file(
+            "image_size_not_met.expected.css")
+        
+        new_css = make_css_images_inline(
+            self.get_fixture_file_path("relative_urls.css"),
+            "/relative_urls.css", image_size_limit=3000
+            )
+        
+        eq_(expected_output, new_css)
 
 
 class TestEncodeImageToBase64(_BaseFixtureTestCase):
