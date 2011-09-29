@@ -7,10 +7,20 @@ from os.path import abspath, expanduser, getsize, join
 import re
 
 
-__all__ = ["make_css_images_inline", "encode_image_to_base64"]
+__all__ = ["make_css_images_inline", "encode_image_to_base64", "CssFileError"]
 
 
 _CSS_URL_RE = re.compile(r"""(url\(\s*['"]?)(.+?)(['"]?\s*\))""")
+
+
+class CssFileError(Exception):
+    """
+    Exception raised when there is a problem with the input regarding the CSS
+    file.
+    
+    """
+    
+    pass
 
 
 class _ImageTooLargeError(Exception):
@@ -37,12 +47,14 @@ def make_css_images_inline(css_file_path, css_file_url, image_size_limit=None):
         to in the CSS in an absolute manner.
     
     """
-    assert css_file_path.endswith(css_file_url), \
-        "css_file_url must occur at the end of css_file_path"
+    if not css_file_path.endswith(css_file_url):
+        raise CssFileError(
+            "css_file_url must occur at the end of css_file_path")
     
-    assert css_file_url.startswith("/"), \
-        "css_file_url must be an absolute URL"
-        
+    if not css_file_url.startswith("/"):
+        raise CssFileError(
+            "css_file_url must be an absolute URL")
+    
     # Compute where the root of the webserver lies on disk
     css_file_abs_path = abspath(expanduser(css_file_path))
     css_file_root = css_file_abs_path[:-len(css_file_url)]

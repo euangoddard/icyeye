@@ -3,7 +3,7 @@
 from os import path
 from nose.tools import eq_, ok_, assert_raises
 
-from icyeye import make_css_images_inline, encode_image_to_base64
+from icyeye import make_css_images_inline, encode_image_to_base64, CssFileError
 
 
 class _BaseFixtureTestCase(object):
@@ -42,7 +42,7 @@ class TestMakeCssImagesInline(_BaseFixtureTestCase):
         
         """
         assert_raises(
-            AssertionError,
+            CssFileError,
             make_css_images_inline,
             "/tmp/css/main.css",
             "/other.css",
@@ -52,7 +52,7 @@ class TestMakeCssImagesInline(_BaseFixtureTestCase):
         """The css_file_url must be an absolute URL."""
         
         assert_raises(
-            AssertionError,
+            CssFileError,
             make_css_images_inline,
             "/tmp/css/main.css",
             "main.css",
