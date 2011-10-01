@@ -11,7 +11,7 @@ setup(name="icyeye",
       description="Inlining of images into CSS files",
       long_description=README,
       classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
@@ -24,8 +24,6 @@ setup(name="icyeye",
       keywords="css images",
       author="Euan Goddard",
       author_email="euan.goddard+icyeye@gmail.com",
-      #url="https://github.com/2degrees/djeneralize",
-      #license="BSD (http://dev.2degreesnetwork.com/p/2degrees-license.html)",
       packages=find_packages(),
       py_modules=[],
       zip_safe=False,
@@ -38,4 +36,9 @@ setup(name="icyeye",
         'nose': ["nose >= 0.11"],
         },
       test_suite="nose.collector",
+      entry_points="""
+      # -*- Entry points: -*-
+      [console_scripts]
+      icyeye = icyeye.cli:main
+      """,
     )
