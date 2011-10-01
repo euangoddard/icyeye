@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Command-line interface for icyeye functionality"""
 from optparse import OptionParser
 from os import path
@@ -67,4 +68,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
