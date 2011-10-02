@@ -3,7 +3,7 @@
 from base64 import standard_b64encode
 from functools import partial
 from mimetypes import guess_type
-from os.path import abspath, expanduser, getsize, join
+from os.path import abspath, basename, expanduser, getsize, join
 import re
 
 
@@ -29,7 +29,8 @@ class _ImageTooLargeError(Exception):
     pass
 
 
-def make_css_images_inline(css_file_path, css_file_url, image_size_limit=None):
+def make_css_images_inline(
+    css_file_path, css_file_url=None, image_size_limit=None):
     """
     Find all images specified in a "url(...)" declaration in the file specified
     by ``css_file_path`` and generate a copy of the the file with the images
@@ -47,6 +48,13 @@ def make_css_images_inline(css_file_path, css_file_url, image_size_limit=None):
         to in the CSS in an absolute manner.
     
     """
+    
+    # If the no URL is not given assume that all url(...) declarations will be
+    # relative. However, we need to compute the file root, so assume that it's
+    # the same directory.
+    if not css_file_url:
+        css_file_url = "/%s" % basename(css_file_path)
+    
     if not css_file_path.endswith(css_file_url):
         raise CssFileError(
             "css_file_url must occur at the end of css_file_path")
@@ -125,7 +133,7 @@ def _substitute_css_url(css_file_root, image_size_limit, url_match):
             
             # TODO: Should this be logged?
             encoded_url = url_path
-        except _ImageTooLargeError, exc:
+        except _ImageTooLargeError:
             # TODO: Should this be logged?
             encoded_url = url_path
 

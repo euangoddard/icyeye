@@ -3,4 +3,5 @@
 icyeye.egg-info/
 *.pyc
 .coverage
-
+docs/build
+.settings

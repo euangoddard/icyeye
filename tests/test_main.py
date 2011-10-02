@@ -1,7 +1,7 @@
 """Main test suite for icyeye"""
 
 from os import path
-from nose.tools import eq_, ok_, assert_raises
+from nose.tools import eq_, assert_raises
 
 from icyeye import make_css_images_inline, encode_image_to_base64, CssFileError
 
@@ -69,7 +69,6 @@ class TestCssImagesInlinerParsing(_BaseFixtureTestCase):
         
         new_css = make_css_images_inline(
             self.get_fixture_file_path("relative_urls.css"),
-            "/relative_urls.css",
             )
         
         eq_(expected_output, new_css)
