@@ -3,7 +3,7 @@
 from base64 import standard_b64encode
 from functools import partial
 from mimetypes import guess_type
-from os.path import abspath, basename, expanduser, getsize, join
+from os.path import abspath, dirname, basename, expanduser, getsize, join
 import re
 
 
@@ -65,6 +65,7 @@ def make_css_images_inline(
     
     # Compute where the root of the webserver lies on disk
     css_file_abs_path = abspath(expanduser(css_file_path))
+    css_file_relative_root = dirname(css_file_abs_path)
     css_file_root = css_file_abs_path[:-len(css_file_url)]
     
     
@@ -77,12 +78,17 @@ def make_css_images_inline(
             css_file.close()
     
     url_substitutor = partial(
-        _substitute_css_url, css_file_root, image_size_limit)
+        _substitute_css_url,
+        css_file_root,
+        css_file_relative_root,
+        image_size_limit,
+        )
     
     return _CSS_URL_RE.sub(url_substitutor, css_text)
 
 
-def _substitute_css_url(css_file_root, image_size_limit, url_match):
+def _substitute_css_url(
+    css_file_root, css_file_relative_root, image_size_limit, url_match):
     """
     Replace the string referring to the url path contained in ``url_match``
     with the base64 encoded version of the image.
@@ -93,6 +99,9 @@ def _substitute_css_url(css_file_root, image_size_limit, url_match):
     
     :param css_file_root: The root directory for the web server
     :type css_file_root: :class:`basestring` 
+    :param css_file_relative_root: The directory which contains the CSS file
+        (for relative URL references)
+    :type css_file_relative_root: :class:`basestring` 
     :param image_size_limit: The upper (inclusive) limit on the size of image
         file to convert (in bytes)
     :type image_size_limit: :class:`int`
@@ -114,7 +123,8 @@ def _substitute_css_url(css_file_root, image_size_limit, url_match):
             absolute_image_path = join(css_file_root, url_path[1:])
         else:
             # Must be a relative URL, so put the path together:
-            absolute_image_path = abspath(join(css_file_root, url_path))
+            absolute_image_path = abspath(
+                join(css_file_relative_root, url_path))
         
         try:
             if image_size_limit:
