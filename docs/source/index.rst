@@ -24,7 +24,7 @@ or ``pip``:
 
 .. code-block:: bash
 
-    $ pip icyeye
+    $ pip install icyeye
 
 If you don't have access to ``easy_install`` or ``pip`` then you can run the
 ``setup.py`` script. To get a code checkout from the git repo, do:
@@ -69,8 +69,8 @@ For more advanced usage, see the :doc:`narrative`.
 Dependencies and python version
 -------------------------------
 
-:mod:`icyeye` has no external dependencies as all functionality is taken from
-the python standard library.
+:mod:`icyeye` has no external dependencies as all functionality utilizes
+functionality from the python standard library.
 
 :mod:`icyeye` was written using python 2.5 and should be forward compatible to
 version 2.7. It relies on :func:`functools.partial`. The :mod:`functools` was
