@@ -29,7 +29,7 @@ def main():
     
     css_file_path = path.abspath(path.expanduser(arguments[0]))
     css_file_url = arguments[1]
-    output_file_name = arguments[2]
+    output_file_name = path.abspath(path.expanduser(arguments[2]))
     
     if not path.exists(css_file_path):
         print "'%s' cannot be found - aborting conversion" % css_file_path
